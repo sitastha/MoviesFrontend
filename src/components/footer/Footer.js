@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import BottomNavigation from 'material-ui/BottomNavigation';
 import IconButton from 'material-ui/IconButton';
