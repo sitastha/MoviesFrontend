@@ -83,7 +83,7 @@ function Home(props){
 
     const onHandleSearch = () => {
         setLoading(true);
-        searchShows()
+        searchShows("test")
         .then(data => {
             console.log(data);
             setLoading(false);

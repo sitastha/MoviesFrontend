@@ -71,37 +71,36 @@ function ShowDetail() {
                                     Rating: {data.rating.average !== null ? data.rating.average : 0}
                                 </Typography>
                                 <Typography variant="body2" gutterBottom>
-                                    Type: {data.type}
+                                    Type: {data.type !== null ? data.type : '' }                              </Typography>
+                                <Typography variant="body2" color="textSecondary">
+                                    Language: {data.language !== null ? data.language : ''}
                                 </Typography>
                                 <Typography variant="body2" color="textSecondary">
-                                    Language: {data.language}
+                                    Genres: {data.genres.length > 0 ? data.genres.join(",") : ''}
                                 </Typography>
                                 <Typography variant="body2" color="textSecondary">
-                                    Genres: {data.genres.join(",")}
+                                    Premiered: {data.premiered !== null ? data.premiered : ''}
                                 </Typography>
                                 <Typography variant="body2" color="textSecondary">
-                                    Premiered: {data.premiered}
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary">
-                                    Schedule: Time - {data.schedule.time? data.schedule.time : '00:00'}, 
-                                    {data.schedule.days.join(",")}
+                                    Schedule: Time - {data.schedule.time !== null ? data.schedule.time : '00:00'}, 
+                                    {data.schedule.days.length > 0 ? data.schedule.days.join(",") : ''}
                                 </Typography>
 
-                                <p dangerouslySetInnerHTML={{ __html: data.summary }} />
+                                <p dangerouslySetInnerHTML={{ __html: data.summary !== null ? data.summary : 'No summary' }} />
 
                                 <Typography variant="body2" color="textSecondary">
-                                    Official Site: <a href={data.officialSite? data.officialSite : ''} target="_blank" rel="noopener noreferrer">
-                                        {data.officialSite? data.officialSite : ''}
+                                    Official Site: <a href={data.officialSite !== null ? data.officialSite : ''} target="_blank" rel="noopener noreferrer">
+                                        {data.officialSite !== null? data.officialSite : 'No Official Site'}
                                         </a>
                                 </Typography>
 
                                 <Typography variant="body2" color="textSecondary">
-                                    Network: {data.network !== null && data.network.name !== null? data.network.name : ''}, 
-                                     {data.network.country.name}
+                                    Network: {data.network !== null ? data.network.name : 'No Network'}, 
+                                     {data.network !== null ? data.network.country.name : 'No Country name'}
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <a href={data.url} target="_blank" rel="noopener noreferrer">For More Info</a>
+                                <a href={data.url !== null ? data.url: ''} target="_blank" rel="noopener noreferrer">For More Info</a>
                             </Grid>
                         </Grid>
                     </Grid>
