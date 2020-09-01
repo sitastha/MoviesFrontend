@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CircularProgress, Typography } from '@material-ui/core';
 import GridList from '@material-ui/core/GridList';
@@ -13,7 +13,7 @@ import {Link} from 'react-router-dom';
 import pop from './Images/pop.jpg'
 import { positions } from '@material-ui/system';
 
-import {searchShows} from '../api/apiService';
+import {movies, searchMovie} from '../api/apiService';
 import { red } from '@material-ui/core/colors';
 
 
@@ -81,9 +81,23 @@ function Home(props){
 
     const [data, setData] = React.useState([]);
 
+    useEffect(() => {
+        setLoading(true);
+        let isCurrent = true;
+        movies()
+        .then(data => {
+            if(isCurrent){
+                console.log(data);
+                setData(data);
+                setLoading(false);
+            }
+        });
+        return () => isCurrent = false;
+    },[data])
+
     const onHandleSearch = () => {
         setLoading(true);
-        searchShows("test")
+        movies()
         .then(data => {
             console.log(data);
             setLoading(false);
@@ -93,7 +107,7 @@ function Home(props){
 
     const onTextChange = (e) => {
         setLoading(true);
-        searchShows(e.target.value)
+        searchMovie(e.target.value)
         .then(data => {
             console.log(data);
             setLoading(false);
@@ -125,7 +139,7 @@ function Home(props){
                                 WELCOME TO THE MOVIES WORLD
                             </Typography>
                     
-                          <img src={pop} alt="film" height="600px" width="100%" />
+                          
                      </div>
                  </div>}
                 {data.length === 0 && loading && <CircularProgress />}
@@ -134,13 +148,13 @@ function Home(props){
                    
                     { data.map(item => (
                         
-                        <GridListTile key={item.show.id}>
-                            <img src={item.show.image !== null ? item.show.image.medium : null} alt={item.show.name} />
-                            <Link to={`/show/${item.show.id}`}>
+                        <GridListTile key={item.id}>
+                            <img src={item.image !== null ? item.image : null} alt={item.name} />
+                            <Link to={`/show/${item.id}`}>
                             <GridListTileBar
-                                title={item.show.name}
+                                title={item.name}
                                 actionIcon={
-                                    <IconButton aria-label={`info about ${item.show.name}`} className={classes.icon}>
+                                    <IconButton aria-label={`info about ${item.name}`} className={classes.icon}>
                                         <InfoIcon />
                                     </IconButton>
                                 }
